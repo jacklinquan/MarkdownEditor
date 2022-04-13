@@ -1,0 +1,425 @@
+<!-- index.html -->
+<!DOCTYPE html >
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Markdown Editor</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.10.5/brython.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.10.5/brython_stdlib.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/ace.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/ext-language_tools.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/mode-markdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/mode-html.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/theme-chrome.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/theme-dracula.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.2/marked.min.js"></script>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/default.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+    
+    <!-- script type="text/python" src="/assets/py/index.py" defer></script -->
+</head>
+
+<body onload="brython(1)">
+    <nav class="teal" role="navigation">
+        <div class="nav-wrapper container">
+            <!-- a id="logo-container" href="#" class="brand-logo">Logo</a -->
+            <div class="brand-logo center">Markdown Editor</div>
+            
+            <!-- Top nav and side nav components here
+            
+            <ul class="right hide-on-med-and-down">
+                <li><a href="#">Navbar Link</a></li>
+            </ul>
+
+            <ul id="nav-mobile" class="sidenav">
+                <li><a href="#">Navbar Link</a></li>
+            </ul>
+            <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            
+            -->
+        </div>
+    </nav>
+    
+    <div>
+        <p></p>
+    </div>
+    
+    <div class="row">
+        <div class="col offset-s1 s10">
+            <div class="row">
+                <div class="col s12 m12 l6">
+                    <div class="row">
+                        <a id="btn_render" class="btn">Render</a>
+                        <!-- a id="btn_clear" class="waves-effect waves-light btn">Clear</a -->
+                        <a id="btn_brightness" class="right btn-flat"><i class="material-icons">brightness_5</i></a>
+                    </div>
+                    <div class="row">
+                        <div id="editor" style="width:100%; border:1px solid grey; font-size:16px;"></div>
+                    </div>
+                </div>
+                <div class="col s12 m12 l6">
+                    <div class="row">
+                        <div class="col s12" style="height:56px;">
+                            <ul class="tabs">
+                                <li class="tab col s3"><a href="#tab0" class="active teal-text">Output</a></li>
+                                <li class="tab col s3"><a href="#tab1" class="teal-text">HTML</a></li>
+                                <li class="tab col s3"><a href="#tab2" class="teal-text">Reference</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div id="tab0" class="col s12">
+                            <iframe id="output" style="width:100%; border:1px solid grey; overflow-y:auto;"></iframe>
+                        </div>
+                        <div id="tab1" class="col s12">
+                            <div id="html_div" style="width:100%; border:1px solid grey; font-size:16px;"></div>
+                        </div>
+                        <div id="tab2" class="col s12">
+                            <textarea id="reference" readonly style="width:100%; resize:none; font-size:16px; font-family:Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif; background-color:whitesmoke; color:black; border:1px solid grey;">
+Markdown Quick Reference
+========================
+
+This guide is a very brief overview, with examples, of the syntax that [Markdown] supports. It is itself written in Markdown and you can copy the samples over to the left-hand pane for experimentation. It's shown as *text* and not *rendered HTML*.
+
+[Markdown]: http://daringfireball.net/projects/markdown/
+
+
+Simple Text Formatting
+======================
+
+First thing is first. You can use *stars* or _underscores_ for italics. **Double stars** and __double underscores__ for bold. ***Three together*** for ___both___.
+
+Paragraphs are pretty easy too. Just have a blank line between chunks of text.
+
+> This chunk of text is in a block quote. Its multiple lines will all be
+> indented a bit from the rest of the text.
+>
+> > Multiple levels of block quotes also work.
+
+Sometimes you want to include code, such as when you are explaining how `<h1>` HTML tags work, or maybe you are a programmer and you are discussing `someMethod()`.
+
+If you want to include code and have new
+lines preserved, indent the line with a tab
+or at least four spaces:
+
+    Extra spaces work here too.
+    This is also called preformatted text and it is useful for showing examples.
+    The text will stay as text, so any *markdown* or <u>HTML</u> you add will
+    not show up formatted. This way you can show markdown examples in a
+    markdown document.
+
+>     You can also use preformatted text with your blockquotes
+>     as long as you add at least five spaces.
+
+
+Headings
+========
+
+There are a couple of ways to make headings. Using three or more equals signs on a line under a heading makes it into an "h1" style. Three or more hyphens under a line makes it "h2" (slightly smaller). You can also use multiple pound symbols (`#`) before and after a heading. Pounds after the title are ignored. Here are some examples:
+
+This is H1
+==========
+
+This is H2
+----------
+
+# This is H1
+## This is H2
+### This is H3 with some extra pounds ###
+#### You get the idea ####
+##### I don't need extra pounds at the end
+###### H6 is the max
+
+
+Links
+=====
+
+Let's link to a few sites. First, let's use the bare URL, like <https://www.github.com>. Great for text, but ugly for HTML.
+Next is an inline link to [Google](https://www.google.com). A little nicer.
+This is a reference-style link to [Wikipedia] [1].
+Lastly, here's a pretty link to [Yahoo]. The reference-style and pretty links both automatically use the links defined below, but they could be defined *anywhere* in the markdown and are removed from the HTML. The names are also case insensitive, so you can use [YaHoO] and have it link properly.
+
+[1]: https://www.wikipedia.org
+[Yahoo]: https://www.yahoo.com
+
+Title attributes may be added to links by adding text after a link.
+This is the [inline link](https://www.bing.com "Bing") with a "Bing" title.
+You can also go to [W3C] [2] and maybe visit a [friend].
+
+[2]: https://w3c.org (The W3C puts out specs for web-based things)
+[Friend]: https://facebook.com "Facebook!"
+
+Email addresses in plain text are not linked: test@example.com.
+Email addresses wrapped in angle brackets are linked: <test@example.com>.
+They are also obfuscated so that email harvesting spam robots hopefully won't get them.
+
+
+Lists
+=====
+
+* This is a bulleted list
+* Great for shopping lists
+- You can also use hyphens
++ Or plus symbols
+
+The above is an "unordered" list. Now, on for a bit of order.
+
+1. Numbered lists are also easy
+2. Just start with a number
+3738762. However, the actual number doesn't matter when converted to HTML.
+1. This will still show up as 4.
+
+You might want a few advanced lists:
+
+- This top-level list is wrapped in paragraph tags
+- This generates an extra space between each top-level item.
+
+- You do it by adding a blank line
+
+- This nested list also has blank lines between the list items.
+
+- How to create nested lists
+  1. Start your regular list
+  2. Indent nested lists with two spaces
+  3. Further nesting means you should indent with two more spaces
+    * This line is indented with four spaces.
+
+- List items can be quite lengthy. You can keep typing and either continue
+them on the next line with no indentation.
+
+- Alternately, if that looks ugly, you can also
+  indent the next line a bit for a prettier look.
+
+- You can put large blocks of text in your list by just indenting with two spaces.
+
+  This is formatted the same as code, but you can inspect the HTML
+  and find that it's just wrapped in a `<p>` tag and *won't* be shown
+  as preformatted text.
+
+  You can keep adding more and more paragraphs to a single
+  list item by adding the traditional blank line and then keep
+  on indenting the paragraphs with two spaces.
+
+  You really only need to indent the first line,
+but that looks ugly.
+
+- Lists support blockquotes
+
+  > Just like this example here. By the way, you can
+  > nest lists inside blockquotes!
+  > - Fantastic!
+
+- Lists support preformatted text
+
+      You just need to indent an additional four spaces.
+
+
+Even More
+=========
+
+Horizontal Rule
+---------------
+
+If you need a horizontal rule you just need to put at least three hyphens, asterisks, or underscores on a line by themselves. You can also even put spaces between the characters.
+
+---
+****************************
+_ _ _ _ _ _ _
+
+Those three all produced horizontal lines. Keep in mind that three hyphens under any text turns that text into a heading, so add a blank like if you use hyphens.
+
+Images
+------
+
+Images work exactly like links, but they have exclamation points in front. They work with references and titles too.
+
+![Google Logo](https://www.google.com/images/errors/logo_sm.gif) and ![Happy].
+
+[Happy]: https://wpclipart.com/smiley/happy/simple_colors/smiley_face_simple_green_small.png ("Smiley face")
+
+
+Inline HTML
+-----------
+
+If markdown is too limiting, you can just insert your own <strike>crazy</strike> HTML. Span-level HTML <u>can *still* use markdown</u>. Block level elements must be separated from text by a blank line and must not have any spaces before the opening and closing HTML.
+
+<div style='font-family: "Comic Sans MS", "Comic Sans", cursive;'>
+It is a pity, but markdown does **not** work in here for most markdown parsers.
+[Marked] handles it pretty well.
+</div>
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script type="text/python">
+
+import sys
+import time
+import binascii
+
+import tb as traceback
+import javascript
+
+from browser import document, html, window, console, bind
+import browser.widgets.dialog as dialog
+
+
+def reset_src():
+    if "code" in document.query:
+        code = document.query.getlist("code")[0]
+        editor.setValue(code)
+    else:
+        if storage is not None and "md_src" in storage:
+            editor.setValue(storage["md_src"])
+        else:
+            editor.setValue("# Hello, World!")
+        if "py_test" in storage and "files" in document:
+            document["files"].selectedIndex = int(storage["py_test"])
+    editor.scrollToRow(0)
+    editor.gotoLine(0)
+
+
+def reset_src_area():
+    if storage and "md_src" in storage:
+        editor.value = storage["md_src"]
+    else:
+        editor.value = "# Hello, World!"
+
+
+def reset_editor():
+    if has_ace:
+        reset_src()
+    else:
+        reset_src_area()
+
+
+# Render the markdown text
+def btn_render_click(*args):
+    src = editor.getValue()
+    if storage is not None:
+        storage["md_src"] = src
+
+    html_content = window.marked.parse(src)
+    if has_ace:
+        html_div.setValue(html_content)
+    else:
+        html_div.value = html_content
+
+    # document["output"].innerHTML = html_content
+    document["output"].srcdoc = (
+        '<link href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.1.0/modern-normalize.min.css" rel="stylesheet">'
+        + '<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/default.min.css" rel="stylesheet">'
+        + html.SCRIPT(src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js").outerHTML
+        + html_content
+        + html.SCRIPT("hljs.highlightAll();").outerHTML
+    )
+
+    # window.hljs.highlightAll()
+
+
+# Switch between Light and Dark mode
+def btn_brightness_click(*args):
+    if document["btn_brightness"].lastChild.text == "brightness_5":
+        document["btn_brightness"].lastChild.text = "brightness_4"
+        editor.setTheme("ace/theme/dracula")
+    else:
+        document["btn_brightness"].lastChild.text = "brightness_5"
+        editor.setTheme("ace/theme/chrome")
+
+
+# console.log(window.M)
+
+# from interpreter import Interpreter
+# Interpreter(globals=globals())
+
+# Set height of editor_container to fit the screen
+_height = int(document.documentElement.clientHeight - 205)
+document["editor"].style.height = f"{_height}px"
+document["output"].style.height = f"{_height}px"
+document["html_div"].style.height = f"{_height}px"
+document["reference"].style.height = f"{_height}px"
+
+try:
+    editor = window.ace.edit("editor")
+    editor.setTheme("ace/theme/chrome")
+    editor.session.setMode("ace/mode/markdown")
+    editor.focus()
+    editor.setOptions(
+        {
+            "enableLiveAutocompletion": True,
+            "highlightActiveLine": True,
+            "highlightSelectedWord": True,
+            "showLineNumbers": False,
+            "wrap": True,
+        }
+    )
+
+    html_div = window.ace.edit("html_div")
+    html_div.setTheme("ace/theme/chrome")
+    html_div.session.setMode("ace/mode/html")
+    html_div.setOptions(
+        {
+            "readOnly": True,
+            "highlightActiveLine": True,
+            "highlightSelectedWord": True,
+            "showLineNumbers": False,
+            "wrap": True,
+            "printMargin": False,
+            "useWorker": False,
+        }
+    )
+
+    has_ace = True
+except:
+    editor = html.TEXTAREA(rows=20, cols=70)
+    document["editor"] <= editor
+
+    def get_value():
+        return editor.value
+
+    def set_value(x):
+        editor.value = x
+
+    editor.getValue = get_value
+    editor.setValue = set_value
+
+    html_div = html.TEXTAREA(rows=20, cols=70)
+    document["html_div"] <= html_div
+
+    has_ace = False
+
+# Expose editor to glabal environment, so it can be tuned on the fly
+window.editor = editor
+
+if hasattr(window, "localStorage"):
+    from browser.local_storage import storage
+else:
+    storage = None
+
+if "set_debug" in document:
+    __BRYTHON__.debug = int(document["set_debug"].checked)
+
+
+reset_editor()
+
+document["btn_render"].bind("click", lambda *args: btn_render_click())
+document["btn_brightness"].bind("click", lambda *args: btn_brightness_click())
+
+# Must do window.M.AutoInit() after all html being loaded!
+window.M.AutoInit()
+
+    </script>
+</body>
+</html>
