@@ -322,8 +322,9 @@ def btn_render_click(*args):
         '<link href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.1.0/modern-normalize.min.css" rel="stylesheet">'
         + '<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/default.min.css" rel="stylesheet">'
         + html.SCRIPT(src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js").outerHTML
+        + html.SCRIPT(src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.0.0/mermaid.min.js").outerHTML
         + html_content
-        + html.SCRIPT("hljs.highlightAll();").outerHTML
+        + html.SCRIPT('hljs.configure({languages: ["plaintext"]}); hljs.highlightAll(); mermaid.initialize({startOnLoad:true});').outerHTML
     )
 
     # window.hljs.highlightAll()
